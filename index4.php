@@ -14,29 +14,15 @@ try {
 	// Primero obtengo la conexion al server
 	$db = new PDO($host, $db_user, $db_pass, $opt);
 
-	$peli = $_GET['peli'];
+	
+	$sql = "INSERT INTO movies (id, title, release_date, rating, awards)
+	VALUES (505, 'Big Fish', '2013-01-01', 10, 2)";
 
-	$query =  $db->prepare("SELECT movies.title as lalala, genres.name
-FROM movies 
-JOIN genres ON movies.genre_id = genres.id WHERE movies.id = :id");
-
-	$query->bindParam(':id', $peli);
-
-
-	$query->execute();
-
-	/** $query es del tipo PDOStatement */
-
-
-echo '<ul>';
-	foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $key => $value) {
-		echo "<li>{$value['lalala']}</li>" ;
-	}
-
-	echo '</ul>';
-
-
-	//var_dump($query->fetch(PDO::FETCH_ASSOC));
+	$query = $db->prepare($sql);
+	$query->execute(); //primera insercción
+	$query->execute(); //segunda insercción??
+	$query->execute(); //tercera insercción???
+	$db = null;
 
 
 	$db = null;
